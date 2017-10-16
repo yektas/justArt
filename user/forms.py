@@ -1,9 +1,11 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.forms import EmailInput, PasswordInput, TextInput
 
 
 class RegistrationForm(forms.ModelForm):
+    username = forms.CharField()
     full_name = forms.CharField()
     password = forms.CharField()
     password2 = forms.CharField()
@@ -12,6 +14,9 @@ class RegistrationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
+        self.fields['username'].widget = TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Kullanıcı adınız'})
         self.fields['full_name'].widget = TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Adınız ve Soyadınız'})
@@ -27,7 +32,13 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', "password", "password2")
+        fields = ("username", "full_name", "email", "password", "password2")
+
+    def clean_username(self):
+        cd = self.cleaned_data
+        if User.objects.filter(username=cd["username"]).exists():
+            raise forms.ValidationError("Bu kullanıcı adı mevcut")
+        return cd["username"]
 
     def clean_full_name(self):
         cd = self.cleaned_data
@@ -48,20 +59,20 @@ class RegistrationForm(forms.ModelForm):
         return cd["email"]
 
 
-class LoginForm(forms.ModelForm):
-    email = forms.CharField()
+class LoginForm(AuthenticationForm):
+    username = forms.CharField()
     password = forms.CharField()
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
 
-        self.fields['email'].widget = EmailInput(attrs={
+        self.fields['username'].widget = TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Email adresiniz'})
+            'placeholder': 'Kullanıcı adınız'})
         self.fields['password'].widget = PasswordInput(attrs={
             'class': 'form-control',
             'placeholder': 'Şifreniz'})
 
     class Meta:
         model = User
-        fields = ["email", "password"]
+        fields = ["username", "password"]

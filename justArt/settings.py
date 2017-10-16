@@ -27,7 +27,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 LOGIN_URL = '/user/login/'
-LOGIN_REDIRECT_URL = '/game/'
+LOGIN_REDIRECT_URL = '/'
 
 INSTALLED_APPS = [
     'user',
@@ -49,8 +49,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-AUTHENTICATION_BACKENDS = ['user.backends.EmailBackend']
 
 ROOT_URLCONF = 'justArt.urls'
 

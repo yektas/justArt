@@ -22,6 +22,9 @@
                             <div class="mt-4">
                                 <form action="{% url 'user:register' %}" method="post">{% csrf_token %}
                                     <div class="form-group">
+                                        {{ form.username }}
+                                    </div>
+                                    <div class="form-group">
                                         {{ form.full_name }}
                                     </div>
                                     <div class="form-group">
