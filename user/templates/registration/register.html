@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+        <link rel="stylesheet" href="{% static 'css/register-signin.css' %}"/>
+    </head>
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-8 offset-sm-2 col-xs-12 mx-auto">
+                    <div class="card border-none">
+                        <div class="card-block">
+                            <div class="mt-2 text-center">
+                                <h2>Hesabınızı Oluşturun</h2>
+                            </div>
+                            <p class="mt-4 text-white lead text-center">
+                                Oyuna başlamak için kayıt olun
+                            </p>
+                            <div class="mt-4">
+                                <form action="{% url 'user:register' %}" method="post">{% csrf_token %}
+                                    <div class="form-group">
+                                        {{ form.full_name }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.email }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.password }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.password2 }}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">Hesabı oluştur</button>
+                                </form>
+                                <div class="clearfix"></div>
+                                <hr>
+                            </div>
+                            <p class="text-center">
+                                Hesabınız var mı? <a href="{% url 'user:login' %}">Giriş yapın</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-12 mt-5 footer">
+                    <p class="text-white small text-center">
+                        &copy; 2017 Login/Register Forms. A FREE Bootstrap 4 component by
+                        <a href="https://wireddots.com">Wired Dots</a>. Designed by <a
+                            href="https://twitter.com/attacomsian">@attacomsian</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
