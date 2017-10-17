@@ -1,11 +1,23 @@
 $(document).ready(function () {
+    var isOver = false;
+    var countDown = setInterval(Timer, 1000);
 
-    var canvas = $("#mainContainer");
-    var question = document.createElement("div");
-    var questionImage = document.createElement("img");
-    questionImage.setAttribute("src", "http://via.placeholder.com/1000x500");
-    questionImage.setAttribute("class", "img-responsive");
-    question.appendChild(questionImage);
-    canvas.append(question)
+    function Timer() {
+        if (!isOver) {
+            var timer = document.getElementById("timer");
+            var currentTimer = timer.innerHTML;
+            var new_time = parseInt(currentTimer) - 1;
+            if (new_time < 0) {
+                timer.innerHTML = 0;
+                isOver = true;
+                clearInterval(countDown)
+            }
+            else {
+                timer.innerHTML = new_time;
+            }
+        }
+
+
+    }
 
 });

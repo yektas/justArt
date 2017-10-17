@@ -1,21 +1,80 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/game.css' %}">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/game.js' %}"></script>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          type="text/css">
+    <link rel="stylesheet" href="{% static 'css/game.css' %}" type="text/css">
 </head>
-<body>
-<div class="container" id="mainContainer">
-    <h1> Hello world </h1>
-</div>
 
+<body>
+<div class="py-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h1 class="">Süre
+                    <br>
+                </h1>
+                <div class="blockquote">
+                    <p id="timer">4</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img class="d-block img-fluid hoverZoomLink image-shadow mx-auto" src="{% static 'img/image1.jpg' %}"
+                     width="450px" id="question">
+            </div>
+            <div class="col-md-4 text-center">
+                <h1 class="">Skor
+                    <br>
+                </h1>
+                <div class="blockquote">
+                    <p class="" id="score">30</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="py-5" style="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <a class="btn btn-primary btn-block text-center btn-lg" href="" id="answer1">Answer 1</a>
+            </div>
+            <div class="col-md-6">
+                <a class="btn btn-primary btn-lg btn-block text-center" href="" data-toggle="" id="answer2">Answer 2
+                    <br> </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <a class="btn btn-primary btn-lg btn-block text-center my-1" href="" id="answer3">Answer 3
+                    <br> </a>
+            </div>
+            <div class="col-md-6">
+                <a class="btn btn-primary btn-lg btn-block text-center my-1" href="" id="answer4">Answer 4
+                    <br> </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+<script src="{% static 'js/game.js' %}"></script>
+<img id="hzDownscaled" style="position: absolute; top: -10000px;">
+<img id="hzDownscaled" style="position: absolute; top: -10000px;">
+<img id="hzDownscaled" style="position: absolute; top: -10000px;">
+<div id="hzImg"
+     style="border: 1px solid rgb(227, 227, 227); line-height: 0; overflow: hidden; padding: 2px; margin: 0px; position: absolute; z-index: 2147483647; border-radius: 3px; background: linear-gradient(to right bottom, rgb(255, 255, 255), rgb(255, 255, 255) 50%, rgb(237, 237, 237)); box-shadow: rgba(0, 0, 0, 0.33) 3px 3px 9px 5px; opacity: 1; top: 0px; left: 396px; cursor: pointer; pointer-events: none; display: none;"></div>
 </body>
+
 </html>
