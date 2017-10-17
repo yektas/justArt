@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
           type="text/css">
-    <link rel="stylesheet" href="{% static 'css/game.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+
 </head>
 
 <body>
@@ -37,38 +38,48 @@
         </div>
     </div>
 </div>
-<div class="py-5" style="">
-    <div class="container">
+<div class="py-2">
+    <div class="container" id="answers">
+
         <div class="row">
             <div class="col-md-6">
-                <a class="btn btn-primary btn-block text-center btn-lg" href="" id="answer1">Answer 1</a>
+                <form>
+                    <input type="hidden" name="answer1">
+                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg" id="answer1">Answer 1
+                    </button>
+                </form>
             </div>
             <div class="col-md-6">
-                <a class="btn btn-primary btn-lg btn-block text-center" href="" data-toggle="" id="answer2">Answer 2
-                    <br> </a>
+                <form>
+                    <input type="hidden" name="answer2">
+                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg" id="answer2">Answer 2<br>
+                    </button>
+                </form>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <a class="btn btn-primary btn-lg btn-block text-center my-1" href="" id="answer3">Answer 3
-                    <br> </a>
+                <br>
+                <form>
+                    <input type="hidden" name="answer3">
+                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg" id="answer3">Answer 3<br>
+                    </button>
+                </form>
             </div>
             <div class="col-md-6">
-                <a class="btn btn-primary btn-lg btn-block text-center my-1" href="" id="answer4">Answer 4
-                    <br> </a>
+                <br>
+                <form>
+                    <input type="hidden" name="answer4">
+                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg" id="answer4">Answer 4
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <script src="{% static 'js/game.js' %}"></script>
 <img id="hzDownscaled" style="position: absolute; top: -10000px;">
 <img id="hzDownscaled" style="position: absolute; top: -10000px;">

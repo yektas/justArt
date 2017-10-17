@@ -1,6 +1,15 @@
 $(document).ready(function () {
     var isOver = false;
-    var countDown = setInterval(Timer, 1000);
+
+    var url = window.location.protocol + "//" + window.location.host + "/questions";
+    $.ajax({
+        url: url,
+        success: function (data) {
+            console.log(JSON.parse(data))
+        }
+    });
+
+    var mainLoop = setInterval(Timer, 1000);
 
     function Timer() {
         if (!isOver) {
@@ -10,14 +19,11 @@ $(document).ready(function () {
             if (new_time < 0) {
                 timer.innerHTML = 0;
                 isOver = true;
-                clearInterval(countDown)
+                clearInterval(mainLoop)
             }
             else {
                 timer.innerHTML = new_time;
             }
         }
-
-
     }
-
 });
