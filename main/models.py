@@ -2,6 +2,7 @@ from random import randint
 
 from django.db import models
 from django.db.models import Count
+from django.utils.safestring import mark_safe
 
 
 class RandomManager(models.Manager):
@@ -19,6 +20,12 @@ class Question(models.Model):
 
     def __str__(self):
         return self.questionImage.name
+
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="150" height="150" />' % self.questionImage.url)
+
+    image_tag.short_description = 'Image'
+    image_tag.allow_tags = True
 
 
 class Choice(models.Model):

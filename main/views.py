@@ -11,7 +11,7 @@ def index(request):
 def game(request):
     if request.method == 'POST':
         category = request.POST.get("category", " ")
-        question = Question.objects.get(category__category_name=category)
+        question = Question.objects.get(category__category_name=category)[:10]
 
         # Sorunun cevabını listemize ekliyoruz en başta
         choices = [str(question.answer)]
