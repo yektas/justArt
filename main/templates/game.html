@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
           type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
@@ -20,11 +20,11 @@
                     <br>
                 </h1>
                 <div class="blockquote">
-                    <p id="timer">4</p>
+                    <p id="timer">20</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <img class="d-block img-fluid hoverZoomLink image-shadow mx-auto" src="{% static 'img/image1.jpg' %}"
+                <img class="d-block img-fluid hoverZoomLink image-shadow mx-auto" src="/media/{{ question.image }}"
                      width="450px" id="question">
             </div>
             <div class="col-md-4 text-center">
@@ -32,7 +32,7 @@
                     <br>
                 </h1>
                 <div class="blockquote">
-                    <p class="" id="score">30</p>
+                    <p class="" id="score">{{ question.point }}</p>
                 </div>
             </div>
         </div>
@@ -45,15 +45,15 @@
             <div class="col-md-6">
                 <form>
                     <input type="hidden" name="answer1">
-                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg" id="answer1">Answer 1
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
+                            id="answer1">{{ question.choices.0 }}</button>
                 </form>
             </div>
             <div class="col-md-6">
                 <form>
                     <input type="hidden" name="answer2">
-                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg" id="answer2">Answer 2<br>
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
+                            id="answer2">{{ question.choices.1 }}<br></button>
                 </form>
             </div>
         </div>
@@ -62,16 +62,16 @@
                 <br>
                 <form>
                     <input type="hidden" name="answer3">
-                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg" id="answer3">Answer 3<br>
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
+                            id="answer3">{{ question.choices.2 }}<br></button>
                 </form>
             </div>
             <div class="col-md-6">
                 <br>
                 <form>
                     <input type="hidden" name="answer4">
-                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg" id="answer4">Answer 4
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
+                            id="answer4">{{ question.choices.3 }}</button>
                 </form>
             </div>
         </div>

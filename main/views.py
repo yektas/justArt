@@ -1,26 +1,30 @@
-import json
-
-from django.http import HttpResponse
 from django.shortcuts import render
 
-from main.models import Question
+from main.models import Question, Choice
 
 
 def index(request):
+
     return render(request, "index.html")
 
 
 def game(request):
-    return render(request, "game.html")
+    if request.method == 'POST':
+        category = request.POST.get("category", " ")
+        question = Question.objects.get(category__category_name=category)
 
-
-def get_questions(request):
-    question = Question.objects.get(pk=2)
-    questions = question.get_content
-    data = {
-        'question': questions[0],
-        'answers': questions[1],
-        'point': questions[2],
-        'category': questions[3]
-    }
-    return HttpResponse(json.dumps(data))
+        # Sorunun cevabını listemize ekliyoruz en başta
+        choices = [str(question.answer)]
+        # Şıkları dolduruyoruz
+        for i in range(3):
+            choice = Choice.randoms.random()
+            # Aynı ise başka bir seçenek alıyoruz
+            while str(choice) in choices:
+                choice = Choice.randoms.random()
+            choices.append(str(choice))
+        payload = {
+            'image': str(question.questionImage),
+            'choices': choices,
+            'point': question.point
+        }
+    return render(request, "game.html", {"question": payload})
