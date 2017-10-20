@@ -26,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TOTAL_QUESTION_NUMBER = 10
+
+
 LOGIN_URL = '/user/login/'
 LOGIN_REDIRECT_URL = '/'
 
@@ -121,3 +124,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+CSRF_USE_SESSIONS = True

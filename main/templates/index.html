@@ -27,12 +27,12 @@
     </div>
 </div>
 <div class="bg-primary p-3">
-    <div class="container">
+    <div class="container" id="category-div">
         <div class="row">
             <div class="p-3 align-self-center col-md-3">
                 <div class="card">
                     <div class="card-block p-5">
-                        <form method="post" action="{% url 'main:game' %}">{% csrf_token %}
+                        <form>{% csrf_token %}
                             <h1 class="text-center text-primary"><span style="font-size: 30px;">5. Sınıf</span></h1>
                             <input type="hidden" name="category" value="5">
                             <hr>
@@ -45,7 +45,7 @@
             <div class="p-3 align-self-center col-md-3">
                 <div class="card">
                     <div class="card-block p-5">
-                        <form method="post" action="{% url 'main:game' %}">{% csrf_token %}
+                        <form>{% csrf_token %}
                             <h1 class="text-center text-primary"><span style="font-size: 30px;">6. Sınıf</span></h1>
                             <input type="hidden" name="category" value="6">
                             <hr>
@@ -58,7 +58,7 @@
             <div class="p-3 align-self-center col-md-3">
                 <div class="card">
                     <div class="card-block p-5">
-                        <form method="post" action="{% url 'main:game' %}">{% csrf_token %}
+                        <form>{% csrf_token %}
                             <h1 class="text-center text-primary"><span style="font-size: 30px;">7. Sınıf</span></h1>
                             <input type="hidden" name="category" value="7">
                             <hr>
@@ -71,7 +71,7 @@
             <div class="p-3 align-self-center col-md-3">
                 <div class="card">
                     <div class="card-block p-5">
-                        <form method="post" action="{% url 'main:game' %}">{% csrf_token %}
+                        <form>{% csrf_token %}
                             <h1 class="text-center text-primary"><span style="font-size: 30px;">8. Sınıf</span></h1>
                             <input type="hidden" name="category" value="8">
                             <hr>
@@ -86,7 +86,7 @@
             <div class="col-md-4 mx-auto">
                 <div class="card">
                     <div class="card-block p-5">
-                        <form method="post" action="{% url 'main:game' %}">{% csrf_token %}
+                        <form>{% csrf_token %}
                             <h1 class="text-center text-primary"><span style="font-size: 30px;">Karışık</span>
                                 <br>
                             </h1>
@@ -102,7 +102,8 @@
     </div>
 </div>
 </body>
-<script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/selectCategory.js' %}"></script>
 </html>
