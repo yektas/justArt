@@ -11,7 +11,7 @@ def index(request):
 def game(request):
     if request.method == 'POST':
         category = request.POST.get("category", " ")
-        question = Question.objects.get(category__category_name=category)[:10]
+        question = Question.objects.get(category__category_name=category)
 
         # Sorunun cevabını listemize ekliyoruz en başta
         choices = [str(question.answer)]
@@ -23,8 +23,15 @@ def game(request):
                 choice = Choice.randoms.random()
             choices.append(str(choice))
         payload = {
+            'id': question.id,
             'image': str(question.questionImage),
             'choices': choices,
             'point': question.point
         }
-    return render(request, "game.html", {"question": payload})
+        return render(request, "game.html", {"question": payload})
+
+
+def checkAnswer(request):
+    if request.method == 'POST':
+        question_id = request.POST.get()
+        choice = request.POST.get('choice')

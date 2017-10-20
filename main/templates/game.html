@@ -5,9 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-          type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
@@ -40,46 +39,45 @@
 </div>
 <div class="py-2">
     <div class="container" id="answers">
-
         <div class="row">
             <div class="col-md-6">
-                <form>
-                    <input type="hidden" name="answer1">
+                <form>{% csrf_token %}
+                    <input type="hidden" name="questionId" value="{{ question.id }}">
                     <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
-                            id="answer1">{{ question.choices.0 }}</button>
+                            id="choice1">{{ question.choices.0 }}</button>
                 </form>
             </div>
             <div class="col-md-6">
-                <form>
-                    <input type="hidden" name="answer2">
+                <form>{% csrf_token %}
+                    <input type="hidden" name="questionId" value="{{ question.id }}">
                     <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
-                            id="answer2">{{ question.choices.1 }}<br></button>
+                            id="choice2">{{ question.choices.1 }}<br></button>
                 </form>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <br>
-                <form>
-                    <input type="hidden" name="answer3">
+                <form>{% csrf_token %}
+                    <input type="hidden" name="questionId" value="{{ question.id }}">
                     <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
-                            id="answer3">{{ question.choices.2 }}<br></button>
+                            id="choice3">{{ question.choices.2 }}<br></button>
                 </form>
             </div>
             <div class="col-md-6">
                 <br>
-                <form>
-                    <input type="hidden" name="answer4">
+                <form>{% csrf_token %}
+                    <input type="hidden" name="questionId" value="{{ question.id }}">
                     <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
-                            id="answer4">{{ question.choices.3 }}</button>
+                            id="choice4">{{ question.choices.3 }}</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/game.js' %}"></script>
 <img id="hzDownscaled" style="position: absolute; top: -10000px;">
 <img id="hzDownscaled" style="position: absolute; top: -10000px;">

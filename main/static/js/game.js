@@ -1,5 +1,29 @@
 $(document).ready(function () {
 
+    $("#answers").on("click", "button", function (event) {
+        event.preventDefault();
+        var form = $(this).closest("form");
+        var questionId = form.serializeArray();
+        var choice = $(this).text();
+        questionId.forEach(function (item) {
+            console.log(item['name=[csrfmiddlewaretoken]']);
+        })
+    });
+
+    function sendChoice(questionId, choice) {
+
+        var url = window.location.protocol + "//" + window.location.host + "/main/check-answer";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                search_user: search_user
+            },
+            success: function (data) {
+            }
+        });
+    }
     var mainLoop = setInterval(Timer, 1000);
 
     function Timer() {
@@ -15,4 +39,6 @@ $(document).ready(function () {
             timer.innerHTML = new_time;
         }
     }
+
+
 });
