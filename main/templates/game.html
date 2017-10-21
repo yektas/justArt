@@ -22,7 +22,7 @@
                     <p id="timer">20</p>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 question-image">
                 <img class="rounded d-block img-fluid hoverZoomLink image-shadow mx-auto"
                      width="450px" id="question">
             </div>
@@ -41,7 +41,7 @@
     <div class="container" id="answers">
         <div class="row">
             <div class="col-md-6">
-                <form>
+                <form>{% csrf_token %}
                     <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
                             id="choice1"><br></button>
                 </form>

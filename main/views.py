@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from justArt import settings
-from main.models import Question, Choice
+from main.models import Question, Artist
 
 
 def index(request):
@@ -27,19 +27,22 @@ def getQuestions(request):
         question_list = {}
         for question in questions:
             # Sorunun cevabını listemize ekliyoruz en başta
-            choices = [str(question.answer)]
+            answer_movement = question.answer.movement_name.movement_name
+            package = (str(question.answer), answer_movement)
+            choices = [package]
 
             # Şıkları dolduruyoruz
             for i in range(3):
-                choice = Choice.randoms.random()
+                artist = Artist.randoms.random()
                 # Aynı ise başka bir seçenek alıyoruz
-                while str(choice) in choices:
-                    choice = Choice.randoms.random()
-                choices.append(str(choice))
+                while package in choices:
+                    artist = Artist.randoms.random()
+                    movement = artist.movement_name.movement_name
+                    package = (str(artist), movement)
+                choices.append(package)
 
             # Şıkları karıştır
             shuffle(choices)
-
             question_dict = {
                 "id": question.id,
                 "image": str(question.questionImage),
@@ -58,8 +61,13 @@ def getNextQuestion(request):
 def checkAnswer(request):
 
     if request.method == 'POST':
-        question_id = request.POST.get()
+        question_id = request.POST.get('questionId')
         choice = request.POST.get('choice')
+        question = Question.objects.get(id=question_id)
+        if choice == question.answer.artist_name:
+            return HttpResponse("True")
+        else:
+            return HttpResponse("False")
 
 
 def setCategory(request):

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from main.models import Question, Choice, Category
+from main.models import Question, Category, Art_Movement, Artist
 
 
 class QuestionStyle(admin.ModelAdmin):
@@ -8,5 +8,6 @@ class QuestionStyle(admin.ModelAdmin):
 
 
 admin.site.register(Question, QuestionStyle)
-admin.site.register(Choice)
+admin.site.register(Artist)
+admin.site.register(Art_Movement)
 admin.site.register(Category)

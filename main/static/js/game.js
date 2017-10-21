@@ -3,13 +3,12 @@ $(document).ready(function () {
     getQuestions();
 
 
-
     $("#answers").on("click", "button", function (event) {
         event.preventDefault();
-        var form = $(this).closest("form");
-        var csrf = form.find("input[name='csrfmiddlewaretoken']").val();
-        var category = form.find("input[name='choice']").val();
-        sendChoice()
+        var pact_value = $(this).val();
+        var choice = pact_value.split(",")[0];
+        var questionId = $(".question-image").attr("id");
+        sendChoice(questionId, choice);
     });
 
     function getQuestions() {
@@ -25,30 +24,34 @@ $(document).ready(function () {
                 var json = JSON.parse(data);
                 var questionSrc = '/media/' + json.question.image;
                 $("#question").prop("src", questionSrc);
+                $(".question-image").prop("id", json.question.id);
                 for (var i = 1; i < 5; i++) {
                     var choice = $("#choice" + i);
-                    choice.text(json.question.choices[i - 1]);
-                    choice.closest("input").prop("value", json.question.id)
+                    var artist_name = json.question.choices[i - 1][0];
+                    var movement = json.question.choices[i - 1][1];
+                    var artist_movement = json.question.choices[i - 1];
+                    choice.val(artist_movement);
+                    choice.text(artist_name + " (" + movement + ")");
                 }
 
             }
         });
-        var form = $(this).closest("form");
-        var csrf = form.find("input[name='csrfmiddlewaretoken']").val();
-        var category = form.find("input[name='category']").val();
     }
 
     function sendChoice(questionId, choice) {
 
         var url = window.location.protocol + "//" + window.location.host + "/check-answer";
+        var csrf = jQuery("[name=csrfmiddlewaretoken]").val();
         $.ajax({
             type: "POST",
             url: url,
             data: {
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-                search_user: search_user
+                csrfmiddlewaretoken: csrf,
+                questionId: questionId,
+                choice: choice
             },
             success: function (data) {
+                alert(data);
             }
         });
     }
@@ -60,7 +63,7 @@ $(document).ready(function () {
         var new_time = parseInt(currentTimer) - 1;
         if (new_time < 0) {
             timer.innerHTML = 0;
-            clearInterval(mainLoop)
+            clearInterval(mainLoop);
         }
         else {
             timer.innerHTML = new_time;

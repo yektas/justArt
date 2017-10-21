@@ -14,7 +14,7 @@ class RandomManager(models.Manager):
 
 class Question(models.Model):
     questionImage = models.ImageField()
-    answer = models.ForeignKey("Choice", related_name="question")
+    answer = models.ForeignKey("Artist", related_name="question")
     point = models.IntegerField(null=True, blank=True)
     category = models.ForeignKey("Category", related_name="level")
 
@@ -28,13 +28,13 @@ class Question(models.Model):
     image_tag.allow_tags = True
 
 
-class Choice(models.Model):
-    choice = models.CharField(unique=True, max_length=200)
-
+class Artist(models.Model):
+    artist_name = models.CharField(unique=True, max_length=200)
+    movement_name = models.ForeignKey("Art_Movement", related_name="artist")
     randoms = RandomManager()
 
     def __str__(self):
-        return self.choice
+        return self.artist_name
 
 
 class Category(models.Model):
@@ -42,3 +42,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category_name
+
+
+class Art_Movement(models.Model):
+    movement_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.movement_name
