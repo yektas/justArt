@@ -1,2 +1,2 @@
 # justArt
-Quiz application with Django
+Quiz application with JS and backended with Django
