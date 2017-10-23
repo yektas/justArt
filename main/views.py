@@ -14,17 +14,20 @@ def index(request):
 
 
 def game(request):
+    request.session['correct'] = 0
+    request.session['point'] = 0
+    request.session['progress'] = 0
     return render(request, "game.html")
 
 
-def getQuestions(request):
+def setQuestions(request):
     if request.method == 'POST':
-        category = request.session['category']
+        category = request.session.get('category', 'mix')
         total_question_number = getattr(settings, 'TOTAL_QUESTION_NUMBER')
 
-        questions = Question.objects.filter(category__category_name=category)[:1]
+        questions = Question.objects.filter(category__category_name=category)[:2]
 
-        question_list = {}
+        question_list = []
         for question in questions:
             # Sorunun cevabını listemize ekliyoruz en başta
             answer_movement = question.answer.movement_name.movement_name
@@ -43,19 +46,29 @@ def getQuestions(request):
 
             # Şıkları karıştır
             shuffle(choices)
-            question_dict = {
+            question_list.append({
                 "id": question.id,
                 "image": str(question.questionImage),
                 "choices": choices,
                 "point": question.point
-            }
-            question_list['question'] = question_dict
+            })
+            # Soruları karıştır
+            shuffle(question_list)
+
         request.session['questions'] = question_list
-        return HttpResponse(json.dumps(request.session['questions']))
+        question_count = len(request.session['questions'])
+        return HttpResponse(question_count)
 
 
-def getNextQuestion(request):
-    question_list = request.session['questions']
+def getQuestion(request):
+    if len(request.session['questions']) > 0:
+        question = request.session['questions'].pop()
+        request.session['progress'] += 1
+        data = {'question': question,
+                'progress': request.session['progress']}
+        return HttpResponse(json.dumps(data))
+    else:
+        return HttpResponse(None)
 
 
 def checkAnswer(request):
@@ -65,9 +78,21 @@ def checkAnswer(request):
         choice = request.POST.get('choice')
         question = Question.objects.get(id=question_id)
         if choice == question.answer.artist_name:
-            return HttpResponse("True")
+            # Cevap doğruysa doğru sayısı ve puanı arttıyoruz
+            request.session['correct'] += 1
+            request.session['point'] += question.point
+            point = {
+                'answer': True,
+                'point': request.session['point']
+            }
+            return HttpResponse(json.dumps(point))
         else:
-            return HttpResponse("False")
+            point = {
+                'answer': False,
+                'point': request.session['point']
+            }
+            return HttpResponse(json.dumps(point))
+
 
 
 def setCategory(request):

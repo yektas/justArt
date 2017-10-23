@@ -126,3 +126,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 CSRF_USE_SESSIONS = True
+SESSION_SAVE_EVERY_REQUEST = True
