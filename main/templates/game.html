@@ -11,29 +11,45 @@
 </head>
 
 <body>
+<audio id="background-audio" src="{% static 'audio/background-1.mp3' %}"></audio>
+<div class="container-fluid">
+    <div class="row" style="margin-bottom: -50px;">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <div class="card" style="background-color: inherit; border: none;">
+                <div class="card-body">
+                    <h4 class="text-primary text-center">Süre</h4>
+                    <p class="p-y-1 text-center"><b id="timer">20</b></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="background-color: inherit; border: none;">
+                <div class="card-body">
+                    <h4 class="text-primary text-center">Puan
+                        <br>
+                    </h4>
+                    <p class="p-y-1 text-center"><b>100</b></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 text-center">
+            <button class="btn btn-outline-primary my-4" id="controlMusic" onclick="controlBackgroundMusic()"><i
+                    class="fa fa-fw fa-volume-up"></i>Müziği&nbsp;Kapat
+                <br>
+            </button>
+        </div>
+    </div>
+</div>
 <div class="py-5">
     <div class="container-fluid">
         <div class="row">
-            <div class="question-image col-md-2">
+            <div class="col-md-2">
             </div>
             <div class="question-image col-md-6">
                 <img class="rounded d-block img-fluid hoverZoomLink image-shadow float-right border border-primary"
-                     style="max-width: 600px;" id="question"></div>
-            <div class="text-center col-md-2">
-                <h1 class="">Süre
-                    <br></h1>
-                <div class="blockquote">
-                    <p id="timer">20</p>
-                </div>
-            </div>
-            <div class="text-center col-md-2">
-                <h1 class="">Skor
-                    <br></h1>
-                <div class="blockquote">
-                    <p class="" id="score">100
-                        <br>
-                    </p>
-                </div>
+                     style="" id="question"></div>
+            <div class="col-md-1">
             </div>
         </div>
     </div>
@@ -44,14 +60,14 @@
             <div class="col-md-6">
                 <form>{% csrf_token %}
                     <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
-                            id="choice1"><br></button>
+                            id="choice1" onclick="checkMyAnswer(this)"><br></button>
                 </form>
             </div>
             <div class="col-md-6">
                 <form>
                     <input type="hidden" name="questionId">
                     <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
-                            id="choice2"><br></button>
+                            id="choice2" onclick="checkMyAnswer(this)"><br></button>
                 </form>
             </div>
         </div>
@@ -61,7 +77,7 @@
                 <form>
                     <input type="hidden" name="questionId">
                     <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
-                            id="choice3"><br></button>
+                            id="choice3" onclick="checkMyAnswer(this)"><br></button>
                 </form>
             </div>
             <div class="col-md-6">
@@ -69,7 +85,7 @@
                 <form>
                     <input type="hidden" name="questionId">
                     <button type="submit" class="btn btn-primary btn-block text-center btn-lg"
-                            id="choice4"><br></button>
+                            id="choice4" onclick="checkMyAnswer(this)"><br></button>
                 </form>
             </div>
         </div>
@@ -78,6 +94,11 @@
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script>
+    var clickSrc = "{% static 'audio/click.wav' %}";
+    var correctSrc = "{% static 'audio/correct2.mp3' %}";
+    var wrongSrc = "{% static 'audio/wrong.wav' %}";
+</script>
 <script src="{% static 'js/game.js' %}"></script>
 <img id="hzDownscaled" style="position: absolute; top: -10000px;">
 <img id="hzDownscaled" style="position: absolute; top: -10000px;">

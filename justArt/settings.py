@@ -24,7 +24,7 @@ SECRET_KEY = 'ir5d=dr+d6&8mu*403sh*k516i2j9j7=8@3$puz3cyk*lx^_sg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 TOTAL_QUESTION_NUMBER = 10
 

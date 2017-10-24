@@ -94,7 +94,6 @@ def checkAnswer(request):
             return HttpResponse(json.dumps(point))
 
 
-
 def setCategory(request):
     if request.method == 'POST':
         category = request.POST.get("category")
