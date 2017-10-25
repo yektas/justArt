@@ -1,3 +1,4 @@
+
 var clickSound = new Audio(clickSrc);
 var correctSound = new Audio(correctSrc);
 var wrongSound = new Audio(wrongSrc);
@@ -20,8 +21,15 @@ function getQuestion() {
             csrfmiddlewaretoken: csrftoken
         },
         success: function (data) {
-            renderQuestion(JSON.parse(data));
-
+            console.log(data);
+            if (data === 'None') {
+                // Burada oyun biticek ve sonuç ekranına yönlendiricez.
+                alert("Game is over Good job");
+            }
+            else {
+                var clean_data = JSON.parse(data);
+                renderQuestion(clean_data);
+            }
         }
     });
 }
@@ -45,23 +53,20 @@ function renderQuestion(question_data) {
 
 // Cevap şıkkı seçildiği zaman;
 function checkMyAnswer(button) {
+    button.classList.remove("hvr-fade");
     var timer = $("#timer");
-    console.log(timer.text());
     clickSound.play();
     var pact_value = button.value;
-    console.log(pact_value);
     var choice = pact_value.split(",")[0];
     var questionId = $(".question-image").attr("id");
     sendChoice(questionId, choice, button);
 }
 
-// Sonraki soru için hazırlıklar;
-function nextQuestion() {
-}
-
 // Seçilen cevabı backend e gönderip kontrol ediyoruz
 function sendChoice(questionId, choice, button) {
-    $("#answers").addClass("disabled");
+    for (var i = 1; i < 5; i++) {
+        document.getElementById("choice" + i).disabled = true;
+    }
     var url = window.location.protocol + "//" + window.location.host + "/check-answer";
     var csrf = jQuery("[name=csrfmiddlewaretoken]").val();
     $.ajax({
@@ -77,15 +82,40 @@ function sendChoice(questionId, choice, button) {
             if (json.answer === true) {
                 correctSound.play();
                 button.classList.add("btn-success");
+                swal({
+                    title: 'Doğru',
+                    type: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
+                })
             }
             else {
                 wrongSound.play();
                 button.classList.add("btn-danger");
+                swal({
+                    title: 'Yanlış',
+                    type: 'error',
+                    timer: 1500,
+                    showConfirmButton: false
+                })
             }
-        },
-        complete: function () {
-            $("#answers").removeClass("disabled");
+            var delayMillis = 1000; //1 second
+            setTimeout(function () {
+                getQuestion();
+                if (button.classList.contains("btn-success")) {
+                    button.classList.remove("btn-success");
         }
+                else if (button.classList.contains("btn-danger")) {
+                    button.classList.remove("btn-danger");
+                }
+                button.classList.add("btn-primary");
+                button.classList.add("hvr-fade");
+                for (var i = 1; i < 5; i++) {
+                    document.getElementById("choice" + i).disabled = false;
+                }
+
+            }, delayMillis);
+        },
     });
 }
 
@@ -117,6 +147,8 @@ function setQuestions() {
         },
         success: function (data) {
             console.log("Yüklenen soru sayısı ", data)
+            var totalQuestion = document.getElementById("totalQuestion");
+            totalQuestion.innerHTML = data;
         }
     });
 }

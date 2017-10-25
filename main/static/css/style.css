@@ -1,3 +1,31 @@
 body {
-    background-color: rgba(104, 216, 102, 0.99);
+    background-color: rgb(134, 255, 113);
+}
+
+.hvr-fade:active, .hvr-fade:hover {
+    background-color: orange !important;
+    box-shadow: none;
+}
+
+#question {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.choice:active, .choice:focus {
+    box-shadow: none;
+}
+
+.choice {
+    border: none;
+    min-width: 350px;
+}
+
+.menu-divider {
+    border-top: 2px solid rgba(1, 123, 255, 0.74);
+}
+
+@media (hover: hover) {
+    button:hover {
+        background-color: blue;
+    }
 }

@@ -7,6 +7,7 @@ from django.shortcuts import render
 from justArt import settings
 from main.models import Question, Artist
 
+total_question_number = getattr(settings, 'TOTAL_QUESTION_NUMBER')
 
 def index(request):
 
@@ -23,7 +24,7 @@ def game(request):
 def setQuestions(request):
     if request.method == 'POST':
         category = request.session.get('category', 'mix')
-        total_question_number = getattr(settings, 'TOTAL_QUESTION_NUMBER')
+
 
         questions = Question.objects.filter(category__category_name=category)[:2]
 
@@ -63,7 +64,7 @@ def setQuestions(request):
 def getQuestion(request):
     if len(request.session['questions']) > 0:
         question = request.session['questions'].pop()
-        request.session['progress'] += 1
+        request.session['progress'] = total_question_number - len(request.session['questions'])
         data = {'question': question,
                 'progress': request.session['progress']}
         return HttpResponse(json.dumps(data))
