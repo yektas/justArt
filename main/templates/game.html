@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/hover-min.css' %}">
     <link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
-
 </head>
 
 <body>
@@ -20,8 +19,8 @@
         <div class="col-sm-3 col-md-3 text-right">
             <div class="card" style="background-color: inherit; border: none;">
                 <div class="card-body">
-                    <h4 class="text-primary mt-3">Soru <span id="currentQuestion">1</span>/<span
-                            id="totalQuestion">10</span></h4>
+                    <h4 class="text-primary mt-3">Soru <span id="currentQuestion">{{ request.session.progress }}</span>/<span
+                            id="totalQuestion"></span></h4>
                 </div>
             </div>
         </div>
@@ -39,7 +38,7 @@
                     <h4 class="text-primary text-center">Puan
                         <br>
                     </h4>
-                    <p class="p-y-1 text-center"><b>0</b></p>
+                    <p class="p-y-1 text-center"><b id="point">0</b></p>
                 </div>
             </div>
         </div>
@@ -106,10 +105,12 @@
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/sweetalert2.min.js' %}"></script>
+<script src="{% static 'js/fakeLoader.min.js' %}"></script>
 <script>
     var clickSrc = "{% static 'audio/click.wav' %}";
     var correctSrc = "{% static 'audio/correct2.mp3' %}";
     var wrongSrc = "{% static 'audio/wrong.wav' %}";
+
 </script>
 <script src="{% static 'js/game.js' %}"></script>
 <img id="hzDownscaled" style="position: absolute; top: -10000px;">

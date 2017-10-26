@@ -23,9 +23,3 @@ body {
 .menu-divider {
     border-top: 2px solid rgba(1, 123, 255, 0.74);
 }
-
-@media (hover: hover) {
-    button:hover {
-        background-color: blue;
-    }
-}

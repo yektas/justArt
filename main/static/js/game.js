@@ -23,12 +23,22 @@ function getQuestion() {
         success: function (data) {
             console.log(data);
             if (data === 'None') {
+                $("#fakeLoader").fakeLoader({
+                    timeToHide: 1200, //Time in milliseconds for fakeLoader disappear
+                    zIndex: "999",//Default zIndex
+                    spinner: "spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
+                    bgColor: "#2ecc71", //Hex, RGB or RGBA color
+                });
+
                 // Burada oyun biticek ve sonuç ekranına yönlendiricez.
-                alert("Game is over Good job");
+
             }
             else {
                 var clean_data = JSON.parse(data);
                 renderQuestion(clean_data);
+                //Kaçıncı soruda
+                var progress = clean_data.progress;
+                $("#currentQuestion").text(progress);
             }
         }
     });
@@ -48,6 +58,7 @@ function renderQuestion(question_data) {
         choice.text(artist_name + " (" + movement + ")");
     }
     $('#answers').click(false);
+    $("#timer").text("20");
 
 }
 
@@ -69,13 +80,15 @@ function sendChoice(questionId, choice, button) {
     }
     var url = window.location.protocol + "//" + window.location.host + "/check-answer";
     var csrf = jQuery("[name=csrfmiddlewaretoken]").val();
+    var time = $("#timer").text();
     $.ajax({
         type: "POST",
         url: url,
         data: {
             csrfmiddlewaretoken: csrf,
             questionId: questionId,
-            choice: choice
+            choice: choice,
+            time: time
         },
         success: function (data) {
             var json = JSON.parse(data);
@@ -99,6 +112,9 @@ function sendChoice(questionId, choice, button) {
                     showConfirmButton: false
                 })
             }
+            //Puanı güncelle
+            $("#point").text(json.point);
+
             var delayMillis = 1000; //1 second
             setTimeout(function () {
                 getQuestion();
@@ -142,6 +158,7 @@ function setQuestions() {
     $.ajax({
         type: "POST",
         url: url,
+        async: false,
         data: {
             csrfmiddlewaretoken: csrftoken
         },

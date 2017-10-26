@@ -13,7 +13,6 @@ def index(request):
 
     return render(request, "index.html")
 
-
 def game(request):
     request.session['correct'] = 0
     request.session['point'] = 0
@@ -21,12 +20,20 @@ def game(request):
     return render(request, "game.html")
 
 
+def finished(request):
+    total_point = request.session['point']
+    correct_count = request.session['correct']
+    data = {
+        'total_point': total_point,
+        'correct_count': correct_count
+    }
+    return HttpResponse(json.dumps(data))
+
 def setQuestions(request):
     if request.method == 'POST':
         category = request.session.get('category', 'mix')
 
-
-        questions = Question.objects.filter(category__category_name=category)[:2]
+        questions = Question.objects.filter(category__category_name=category)[:5]
 
         question_list = []
         for question in questions:
@@ -64,24 +71,27 @@ def setQuestions(request):
 def getQuestion(request):
     if len(request.session['questions']) > 0:
         question = request.session['questions'].pop()
-        request.session['progress'] = total_question_number - len(request.session['questions'])
-        data = {'question': question,
-                'progress': request.session['progress']}
+        request.session['progress'] += 1
+        data = {
+            'question': question,
+            'progress': request.session['progress']
+        }
         return HttpResponse(json.dumps(data))
     else:
         return HttpResponse(None)
 
 
 def checkAnswer(request):
-
     if request.method == 'POST':
         question_id = request.POST.get('questionId')
         choice = request.POST.get('choice')
+        time = request.POST.get('time')
         question = Question.objects.get(id=question_id)
         if choice == question.answer.artist_name:
             # Cevap doğruysa doğru sayısı ve puanı arttıyoruz
             request.session['correct'] += 1
-            request.session['point'] += question.point
+            time_plus = float(time) * 1.5
+            request.session['point'] += question.point + int(time_plus)
             point = {
                 'answer': True,
                 'point': request.session['point']
