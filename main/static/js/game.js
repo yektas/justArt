@@ -59,13 +59,11 @@ function renderQuestion(question_data) {
     }
     $('#answers').click(false);
     $("#timer").text("20");
-
 }
 
 // Cevap şıkkı seçildiği zaman;
 function checkMyAnswer(button) {
     button.classList.remove("hvr-fade");
-    var timer = $("#timer");
     clickSound.play();
     var pact_value = button.value;
     var choice = pact_value.split(",")[0];
@@ -143,8 +141,20 @@ function Timer() {
     var currentTimer = timer.innerHTML;
     var new_time = parseInt(currentTimer) - 1;
     if (new_time < 0) {
-        timer.innerHTML = 0;
         clearInterval(mainLoop);
+        swal({
+            title: 'Süre Doldu',
+            type: 'error',
+            timer: 1000,
+            showConfirmButton: false
+        });
+        setTimeout(function () {
+            getQuestion();
+            mainLoop = setInterval(Timer, 1000);
+        }, 1000);
+
+
+
     }
     else {
         timer.innerHTML = new_time;
@@ -169,7 +179,6 @@ function setQuestions() {
         }
     });
 }
-
 
 function controlBackgroundMusic() {
     var button = $("#controlMusic");

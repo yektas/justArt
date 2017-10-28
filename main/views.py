@@ -1,6 +1,7 @@
 import json
 from random import shuffle
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -9,10 +10,13 @@ from main.models import Question, Artist
 
 total_question_number = getattr(settings, 'TOTAL_QUESTION_NUMBER')
 
-def index(request):
 
+@login_required
+def index(request):
     return render(request, "index.html")
 
+
+@login_required
 def game(request):
     request.session['correct'] = 0
     request.session['point'] = 0
@@ -20,6 +24,7 @@ def game(request):
     return render(request, "game.html")
 
 
+@login_required
 def finished(request):
     total_point = request.session['point']
     correct_count = request.session['correct']
@@ -85,13 +90,14 @@ def checkAnswer(request):
     if request.method == 'POST':
         question_id = request.POST.get('questionId')
         choice = request.POST.get('choice')
-        time = request.POST.get('time')
         question = Question.objects.get(id=question_id)
+
         if choice == question.answer.artist_name:
             # Cevap doğruysa doğru sayısı ve puanı arttıyoruz
+            time = request.POST.get('time')
             request.session['correct'] += 1
-            time_plus = float(time) * 1.5
-            request.session['point'] += question.point + int(time_plus)
+            time_plus = int(time) * 10
+            request.session['point'] += question.point + time_plus
             point = {
                 'answer': True,
                 'point': request.session['point']
@@ -103,7 +109,6 @@ def checkAnswer(request):
                 'point': request.session['point']
             }
             return HttpResponse(json.dumps(point))
-
 
 def setCategory(request):
     if request.method == 'POST':

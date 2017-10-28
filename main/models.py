@@ -16,7 +16,7 @@ class Question(models.Model):
     questionImage = models.ImageField()
     answer = models.ForeignKey("Artist", related_name="question")
     point = models.IntegerField(null=True, blank=True)
-    category = models.ForeignKey("Category", related_name="level")
+    category = models.ManyToManyField("Category", related_name="category")
 
     def __str__(self):
         return self.questionImage.name
