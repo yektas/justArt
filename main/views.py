@@ -4,10 +4,11 @@ from random import shuffle
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import loader
+from django.template.loader import render_to_string
 
 from justArt import settings
 from main.models import Question, Artist
+from support.models import Foundation
 
 total_question_number = getattr(settings, 'TOTAL_QUESTION_NUMBER')
 
@@ -30,15 +31,24 @@ def finished(request):
     if request.method == 'POST':
         total_point = request.session['point']
         correct_count = request.session['correct']
+        question_count = request.session['question_count']
+
+        foundations = Foundation.objects.all()
+        total_support_count = Foundation.objects.get_support_count
+        
         data = {
             'total_point': total_point,
-            'correct_count': correct_count
+            'correct_count': correct_count,
+            'total_question': question_count,
+            'foundations': foundations,
+            'total_support_count': total_support_count
         }
-        template = loader.get_template("endScreen.html")
-        return HttpResponse(template.render())
+        html = render_to_string('endScreen.html', data)
+        return HttpResponse(html)
 
 def setQuestions(request):
     if request.method == 'POST':
+        request.session['question_count'] = 0
         category = request.session.get('category', 'mix')
 
         questions = Question.objects.filter(category__category_name=category)[:5]
@@ -73,6 +83,8 @@ def setQuestions(request):
 
         request.session['questions'] = question_list
         question_count = len(request.session['questions'])
+        request.session['question_count'] = question_count
+
         return HttpResponse(question_count)
 
 

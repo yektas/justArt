@@ -14,12 +14,93 @@
 </head>
 
 <body>
-<h1> Game is over </h1>
-<h1> Puanınız</h1>
-<h1> Toplam 10 sorudan 3 tanesini doğru cevapladınız.</h1>
-<h1> Hangi vakıfa katkıda bulunmak istiyorsunuz (Vakıfların resimleri)</h1>
-(Vakıflar; Otizm derneği, Tegv)
-<h1></h1>
-
+<div class="py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="bg-primary text-center text-white">
+                        <div class="col-md-12 py-5 bg-primary">
+                            <h1><i class="fa fa-lg fa-star"></i></h1>
+                        </div>
+                    </div>
+                    <div class="card-body text-primary">
+                        <h3 class="text-center">Puanın</h3>
+                        <p class="text-center">{{ total_point }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="bg-primary text-center text-white">
+                        <div class="col-md-12 bg-success py-5">
+                            <h1><i class="fa fa-lg fa-check"></i></h1>
+                        </div>
+                    </div>
+                    <div class="card-body text-primary">
+                        <h3 class="text-center">Doğru Cevaplar</h3>
+                        <p class="text-center">{{ correct_count }}/{{ total_question }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="text-center"> Şu zamana kadar yapılan toplam katkı sayısı : {{ total_support_count }}</h3>
+    <div class="py-5 text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Tebrikler, katkı sağlamaya hak kazandın.</h1>
+                    <p class="lead">Hangi vakıfa katkı sağlamak istediğini seç!</p>
+                </div>
+            </div>
+            <div class="row">
+                {% for foundation in foundations %}
+                    <div class="col-md-6 p-4">
+                        <form>
+                            <img class="img-fluid d-block mx-auto rounded" src="/media/{{ foundation.logo }}"
+                                 style="width: 290px; min-height: 300px">
+                            <br>
+                            <h2>{{ foundation.foundation_name }}</h2>
+                            <p class="my-4"><i>{{ foundation.about }}</i></p>
+                            <input type="hidden" name="foundation" value="{{ foundation_id }}">
+                            <button class="btn btn-primary"> Katkı Sağla</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <p class="lead">Sign up to our newsletter for the latest news</p>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your e-mail here"></div>
+                        <button type="submit" class="btn btn-primary ml-3">Subscribe</button>
+                    </form>
+                </div>
+                <div class="col-4 col-md-1 align-self-center">
+                    <a href="https://www.facebook.com" target="_blank"><i
+                            class="fa fa-fw fa-facebook fa-3x text-white"></i></a>
+                </div>
+                <div class="col-4 col-md-1 align-self-center">
+                    <a href="https://twitter.com" target="_blank"><i
+                            class="fa fa-fw fa-twitter fa-3x text-white"></i></a>
+                </div>
+                <div class="col-4 col-md-1 align-self-center">
+                    <a href="https://www.instagram.com" target="_blank"><i
+                            class="fa fa-fw fa-instagram text-white fa-3x"></i></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-3 text-center">
+                    <p>© Copyright 2017 Pingendo - All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
