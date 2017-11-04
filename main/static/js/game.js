@@ -21,17 +21,29 @@ function getQuestion() {
             csrfmiddlewaretoken: csrftoken
         },
         success: function (data) {
-            console.log(data);
             if (data === 'None') {
+                // Burada oyun biticek ve sonuç ekranına yönlendiricez.
+                clearInterval(mainLoop);
                 $("#fakeLoader").fakeLoader({
-                    timeToHide: 1200, //Time in milliseconds for fakeLoader disappear
+                    timeToHide: 2000, //Time in milliseconds for fakeLoader disappear
                     zIndex: "999",//Default zIndex
                     spinner: "spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
                     bgColor: "#2ecc71", //Hex, RGB or RGBA color
                 });
 
-                // Burada oyun biticek ve sonuç ekranına yönlendiricez.
-
+                // Sonuçlar için ajax call yapıyoruz ve sayfayı renderlıyoruz.
+                var url = window.location.protocol + "//" + window.location.host + "/finished";
+                var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        csrfmiddlewaretoken: csrftoken
+                    },
+                    success: function (response) {
+                        $("html").html(response);
+                    }
+                });
             }
             else {
                 var clean_data = JSON.parse(data);
@@ -152,7 +164,6 @@ function Timer() {
             getQuestion();
             mainLoop = setInterval(Timer, 1000);
         }, 1000);
-
 
 
     }

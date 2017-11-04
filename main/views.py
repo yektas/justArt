@@ -4,6 +4,7 @@ from random import shuffle
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.template import loader
 
 from justArt import settings
 from main.models import Question, Artist
@@ -26,13 +27,15 @@ def game(request):
 
 @login_required
 def finished(request):
-    total_point = request.session['point']
-    correct_count = request.session['correct']
-    data = {
-        'total_point': total_point,
-        'correct_count': correct_count
-    }
-    return HttpResponse(json.dumps(data))
+    if request.method == 'POST':
+        total_point = request.session['point']
+        correct_count = request.session['correct']
+        data = {
+            'total_point': total_point,
+            'correct_count': correct_count
+        }
+        template = loader.get_template("endScreen.html")
+        return HttpResponse(template.render())
 
 def setQuestions(request):
     if request.method == 'POST':
