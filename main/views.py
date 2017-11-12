@@ -1,4 +1,5 @@
 import json
+from math import floor
 from random import shuffle
 
 from django.contrib.auth.decorators import login_required
@@ -33,15 +34,23 @@ def finished(request):
         correct_count = request.session['correct']
         question_count = request.session['question_count']
 
+        required_correct_count = floor(int(question_count) * 0.7)
+        can_support = False
+        # Soruların %70 i doğru ise katkı sağlamaya hak kazanır
+        if correct_count >= required_correct_count:
+            can_support = True
+
         foundations = Foundation.objects.all()
         total_support_count = Foundation.objects.get_support_count
-        
+
         data = {
             'total_point': total_point,
             'correct_count': correct_count,
             'total_question': question_count,
             'foundations': foundations,
-            'total_support_count': total_support_count
+            'total_support_count': total_support_count,
+            'can_support': can_support,
+            'required_correct_count': required_correct_count
         }
         html = render_to_string('endScreen.html', data)
         return HttpResponse(html)

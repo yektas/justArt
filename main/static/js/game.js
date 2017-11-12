@@ -4,7 +4,8 @@ var correctSound = new Audio(correctSrc);
 var wrongSound = new Audio(wrongSrc);
 var background = document.getElementById("background-audio");
 background.loop = true;
-background.volume = 0.1;
+volume = 0.1;
+background.volume = volume;
 background.play();
 setQuestions();
 getQuestion();
@@ -23,7 +24,6 @@ function getQuestion() {
         success: function (data) {
             if (data === 'None') {
                 // Burada oyun biticek ve sonuç ekranına yönlendiricez.
-                clearInterval(mainLoop);
                 $("#fakeLoader").fakeLoader({
                     timeToHide: 2000, //Time in milliseconds for fakeLoader disappear
                     zIndex: "999",//Default zIndex
@@ -31,19 +31,41 @@ function getQuestion() {
                     bgColor: "#2ecc71", //Hex, RGB or RGBA color
                 });
 
-                // Sonuçlar için ajax call yapıyoruz ve sayfayı renderlıyoruz.
-                var url = window.location.protocol + "//" + window.location.host + "/finished";
-                var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {
-                        csrfmiddlewaretoken: csrftoken
-                    },
-                    success: function (response) {
-                        $("html").html(response);
+                // Arkaplan müziğinin sesini azar azar kısıyoruz.
+                function fadeVolume(volume, callback) {
+                    var factor = 0.01,
+                        speed = 150;
+                    if (volume > factor) {
+                        setTimeout(function () {
+                            fadeVolume((background.volume -= factor), callback);
+                        }, speed);
+                    } else {
+                        (typeof(callback) !== 'function') || callback();
                     }
-                });
+                }
+
+                fadeVolume(background.volume);
+
+                clearInterval(mainLoop);
+
+                var delayMillis = 1500; //1.5 seconds
+                setTimeout(function () {
+                    // Sonuçlar için ajax call yapıyoruz ve sayfayı renderlıyoruz.
+                    var url = window.location.protocol + "//" + window.location.host + "/finished";
+                    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            csrfmiddlewaretoken: csrftoken
+                        },
+                        success: function (response) {
+                            $("html").html(response);
+                        }
+                    });
+                }, delayMillis);
+
+
             }
             else {
                 var clean_data = JSON.parse(data);
@@ -106,31 +128,33 @@ function sendChoice(questionId, choice, button) {
                 correctSound.play();
                 button.classList.add("btn-success");
                 swal({
-                    title: 'Doğru',
+                    html: "<h2 style='color:#fff'> Doğru <h2>",
                     type: 'success',
                     timer: 1500,
-                    showConfirmButton: false
-                })
+                    background: 'transparent',
+                    showConfirmButton: false,
+                }).catch(swal.noop);
             }
-            else {
+            else if (json.answer === false) {
                 wrongSound.play();
                 button.classList.add("btn-danger");
                 swal({
-                    title: 'Yanlış',
+                    html: "<h2 style='color:#fff'> Yanlış <h2>",
                     type: 'error',
                     timer: 1500,
+                    background: 'transparent',
                     showConfirmButton: false
-                })
+                }).catch(swal.noop);
             }
             //Puanı güncelle
             $("#point").text(json.point);
 
-            var delayMillis = 1000; //1 second
+            var delayMillis = 1500; //1.5 seconds
             setTimeout(function () {
                 getQuestion();
                 if (button.classList.contains("btn-success")) {
                     button.classList.remove("btn-success");
-        }
+                }
                 else if (button.classList.contains("btn-danger")) {
                     button.classList.remove("btn-danger");
                 }
@@ -155,11 +179,11 @@ function Timer() {
     if (new_time < 0) {
         clearInterval(mainLoop);
         swal({
-            title: 'Süre Doldu',
+            html: "<h2 style='color:#fff'> Süre Doldu <h2>",
             type: 'error',
-            timer: 1000,
+            background: 'transparent',
             showConfirmButton: false
-        });
+        }).catch(swal.noop);
         setTimeout(function () {
             getQuestion();
             mainLoop = setInterval(Timer, 1000);
