@@ -45,6 +45,7 @@
 <!-- Navbar end -->
 
 <audio id="background-audio" src="{% static 'audio/background-1.mp3' %}"></audio>
+<div id=mainContainer>
 <div class="container-fluid game-stats">
     <div class="row" style="height: 70px;">
         <div class="col-sm-3 col-md-3 text-right">
@@ -132,6 +133,7 @@
         </div>
     </div>
 </div>
+</div>
 <div id="fakeLoader">
 </div>
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
@@ -143,7 +145,6 @@
     var clickSrc = "{% static 'audio/click.wav' %}";
     var correctSrc = "{% static 'audio/correct2.mp3' %}";
     var wrongSrc = "{% static 'audio/wrong.wav' %}";
-
 </script>
 <script src="{% static 'js/supportFoundation.js' %}"></script>
 <script src="{% static 'js/game.js' %}"></script>
