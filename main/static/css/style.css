@@ -27,3 +27,15 @@ body {
 .game-stats {
     background-color: white;
 }
+
+.support-form {
+    -webkit-box-shadow: 0px 0px 52px -11px rgba(0, 0, 0, 0.78);
+    -moz-box-shadow: 0px 0px 52px -11px rgba(0, 0, 0, 0.78);
+    box-shadow: 0px 0px 52px -11px rgba(0, 0, 0, 0.78);
+    background: aliceblue;
+}
+
+.card {
+    border: 0px;
+    background: aliceblue;
+}

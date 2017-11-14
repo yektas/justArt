@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^set-category$', views.setCategory, name='set_category'),
     url(r'^set-questions$', views.setQuestions, name='set_questions'),
     url(r'^check-answer$', views.checkAnswer, name='check_answer'),
-    url(r'end-screen$', views.endScreen, name='end_screen'),
+    url(r'^end-screen$', views.endScreen, name='end_screen'),
 ]

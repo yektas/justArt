@@ -1,4 +1,3 @@
-
 var clickSound = new Audio(clickSrc);
 var correctSound = new Audio(correctSrc);
 var wrongSound = new Audio(wrongSrc);
@@ -6,13 +5,22 @@ var background = document.getElementById("background-audio");
 background.loop = true;
 volume = 0.1;
 background.volume = volume;
-background.play();
 
 var progress = 0;
 var questions = [];
-var mainContainer = $("#mainContainer");
+
+var mainLoop;
 setQuestions();
 renderQuestion(questions);
+window.onload = function () {
+    $("#loader-wrapper").fadeOut(700, function () {
+        $(this).remove();
+    });
+    mainLoop = setInterval(Timer, 1000);
+    background.play();
+};
+
+
 
 // Gelen soruyu render lar.
 function renderQuestion(questions) {
@@ -59,8 +67,8 @@ function renderQuestion(questions) {
         fadeVolume(background.volume);
         clearInterval(mainLoop);
 
-        $.get("/main/end-screen", function (data) {
-            mainContainer.html(data);
+        $.get("/end-screen", function (data) {
+            $("#mainContainer").html(data);
         });
     }
 }
@@ -139,9 +147,6 @@ function sendChoice(questionId, choice, button) {
     });
 }
 
-// Süreyi her saniye ekranda gösteriyoruz.
-var mainLoop = setInterval(Timer, 1000);
-
 function Timer() {
     var timer = document.getElementById("timer");
     var currentTimer = timer.innerHTML;
@@ -180,18 +185,20 @@ function setQuestions() {
             questions = JSON.parse(data);
             var totalQuestion = document.getElementById("totalQuestion");
             totalQuestion.innerHTML = questions.length;
-        }
+        },
+
     });
 }
 
 function controlBackgroundMusic() {
+    var icon = $("#controlMusic > i");
     var button = $("#controlMusic");
     if (background.paused) {
-        button.text("Müziği Kapat");
+        button.html("<i class='fa fa-fw fa-volume-up'></i> Müziği Kapat");
         background.play();
     }
     else {
-        button.text("Müziği Aç");
+        button.html("<i class='fa fa-fw fa-volume-off'></i> Müziği Aç");
         background.pause();
     }
 }

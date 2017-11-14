@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="{% static 'css/hover-min.css' %}">
     <link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/fakeLoader.css' %}">
+    <link rel="stylesheet" href="{% static 'css/preloader.css' %}">
 </head>
 
 <body>
+
 <!-- Navbar start -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
     <a class="navbar-brand" href="#">justArt</a>
@@ -76,7 +78,7 @@
         </div>
         <div class="col-sm-3 col-md-3 text-center my-4">
             <button class="btn btn-outline-primary" id="controlMusic" onclick="controlBackgroundMusic()"><i
-                    class="fa fa-fw fa-volume-up"></i>Müziği&nbsp;Kapat
+                    class="fa fa-fw fa-volume-up"></i>Müziği Kapat
                 <br>
             </button>
         </div>
@@ -133,6 +135,9 @@
         </div>
     </div>
 </div>
+</div>
+<div id="loader-wrapper">
+    <div id="loader"></div>
 </div>
 <div id="fakeLoader">
 </div>

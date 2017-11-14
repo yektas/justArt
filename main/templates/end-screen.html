@@ -1,4 +1,4 @@
-<div class="py-3">
+<div class="py-3" style="min-height:700px">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -40,19 +40,22 @@
                 </div>
                 <div class="row">
                     {% for foundation in foundations %}
-                        <div class="col-md-6 p-4">
-                            <form class="support-form">
+                        <div class="col-md-4 p-4 foundation">
+                            <form class="support-form">{% csrf_token %}
                                 <img class="img-fluid d-block mx-auto rounded" src="/media/{{ foundation.logo }}"
                                      style="width: 290px; min-height: 300px">
                                 <br>
-                                <h2>{{ foundation.foundation_name }}</h2>
-                                <p class="my-4"><i>{{ foundation.about }}</i></p>
-                                <input type="hidden" name="foundation" value="{{ foundation_id }}">
+                                <h5>{{ foundation.foundation_name }}</h5>
+                                <p class="my-4" style="min-height: 100px; font-size: 12px;">
+                                    <i>{{ foundation.about }}</i></p>
+                                <input type="hidden" name="foundation" value={{ foundation.id }}>
                                 <div class="card">
                                     <div class="card-body p-3">
                                         <h4><i class="fa fa-fw fa-child fa-2x"></i></h4>
-                                        <h2>2000</h2>
-                                        <button type="submit" class="btn btn-primary btn-lg">Destek Ol</button>
+                                        <h2 class="support_count"
+                                            data-id={{ foundation.id }}>{{ foundation.support_count }}</h2>
+                                        <button type="submit" class="btn btn-primary btn-lg supportBtn">Destek Ol
+                                        </button>
                                     </div>
                                 </div>
                             </form>
