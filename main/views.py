@@ -7,8 +7,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from justArt import settings
-from main.models import Question, Artist
+from main.models import Question, Artist, Category
 from support.models import Foundation
+from user.models import Result
 
 total_question_number = getattr(settings, 'TOTAL_QUESTION_NUMBER')
 
@@ -27,17 +28,26 @@ def game(request):
 
 @login_required
 def endScreen(request):
+    user = request.user
     total_point = request.session['point']
     correct_count = request.session['correct']
     question_count = request.session['question_count']
     required_correct_count = floor(int(question_count) * 0.7)
+    foundations = Foundation.objects.all()
+    total_support_count = Foundation.objects.get_support_count
+
+    # Sonucu db ye kaydediyoruz.
+    category = Category.objects.get(category_name=request.session['category'])
+    Result.objects.create(
+        user=user,
+        category=category,
+        point=total_point,
+    )
+
     can_support = False
     # Soruların %70 i doğru ise katkı sağlamaya hak kazanır
     if correct_count >= required_correct_count:
         can_support = True
-
-    foundations = Foundation.objects.all()
-    total_support_count = Foundation.objects.get_support_count
 
     data = {
         'total_point': total_point,
