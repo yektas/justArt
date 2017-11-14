@@ -1,15 +1,21 @@
 from django.db import models
 from django.shortcuts import get_object_or_404
 
+from support.signals import support_added
+
 
 class FoundationManager(models.Manager):
-    def add_support(foundation_id):
+    def add_support(self, user, foundation_id):
         foundation = get_object_or_404(Foundation, pk=foundation_id)
         foundation.support_count += 1
         foundation.save()
+        support_added.send(
+            sender=Foundation,
+            user_id=user.id
+        )
         return foundation.support_count
 
-    def get_support_count():
+    def get_support_count(self):
         foundations = Foundation.objects.all()
         count = 0
         for foundation in foundations:

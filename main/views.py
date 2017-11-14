@@ -5,11 +5,11 @@ from random import shuffle
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template.loader import render_to_string
 
 from justArt import settings
-from main.models import Question, Artist
+from main.models import Question, Artist, Category
 from support.models import Foundation
+from user.models import Result
 
 total_question_number = getattr(settings, 'TOTAL_QUESTION_NUMBER')
 
@@ -26,41 +26,46 @@ def game(request):
     request.session['progress'] = 0
     return render(request, "game.html")
 
-
 @login_required
-def finished(request):
-    if request.method == 'POST':
-        total_point = request.session['point']
-        correct_count = request.session['correct']
-        question_count = request.session['question_count']
+def endScreen(request):
+    user = request.user
+    total_point = request.session['point']
+    correct_count = request.session['correct']
+    question_count = request.session['question_count']
+    required_correct_count = floor(int(question_count) * 0.7)
+    foundations = Foundation.objects.all()
+    total_support_count = Foundation.objects.get_support_count
 
-        required_correct_count = floor(int(question_count) * 0.7)
-        can_support = False
-        # Soruların %70 i doğru ise katkı sağlamaya hak kazanır
-        if correct_count >= required_correct_count:
-            can_support = True
+    # Sonucu db ye kaydediyoruz.
+    category = Category.objects.get(category_name=request.session['category'])
+    Result.objects.create(
+        user=user,
+        category=category,
+        point=total_point,
+    )
 
-        foundations = Foundation.objects.all()
-        total_support_count = Foundation.objects.get_support_count
+    can_support = False
+    # Soruların %70 i doğru ise katkı sağlamaya hak kazanır
+    if correct_count >= required_correct_count:
+        can_support = True
 
-        data = {
-            'total_point': total_point,
-            'correct_count': correct_count,
-            'total_question': question_count,
-            'foundations': foundations,
-            'total_support_count': total_support_count,
-            'can_support': can_support,
-            'required_correct_count': required_correct_count
-        }
-        html = render_to_string('endScreen.html', data)
-        return HttpResponse(html)
+    data = {
+        'total_point': total_point,
+        'correct_count': correct_count,
+        'total_question': question_count,
+        'foundations': foundations,
+        'total_support_count': total_support_count,
+        'can_support': can_support,
+        'required_correct_count': required_correct_count
+    }
+    return render(request, "end-screen.html", data);
 
 def setQuestions(request):
     if request.method == 'POST':
         request.session['question_count'] = 0
         category = request.session.get('category', 'mix')
 
-        questions = Question.objects.filter(category__category_name=category)[:5]
+        questions = Question.objects.filter(category__category_name=category)[:2]
 
         question_list = []
         for question in questions:
@@ -89,26 +94,9 @@ def setQuestions(request):
             })
             # Soruları karıştır
             shuffle(question_list)
+            request.session['question_count'] = len(question_list)
 
-        request.session['questions'] = question_list
-        question_count = len(request.session['questions'])
-        request.session['question_count'] = question_count
-
-        return HttpResponse(question_count)
-
-
-def getQuestion(request):
-    if len(request.session['questions']) > 0:
-        question = request.session['questions'].pop()
-        request.session['progress'] += 1
-        data = {
-            'question': question,
-            'progress': request.session['progress']
-        }
-        return HttpResponse(json.dumps(data))
-    else:
-        return HttpResponse(None)
-
+        return HttpResponse(json.dumps(question_list))
 
 def checkAnswer(request):
     if request.method == 'POST':

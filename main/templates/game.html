@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="{% static 'css/hover-min.css' %}">
     <link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/fakeLoader.css' %}">
+    <link rel="stylesheet" href="{% static 'css/preloader.css' %}">
 </head>
 
 <body>
+
 <!-- Navbar start -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
     <a class="navbar-brand" href="#">justArt</a>
@@ -45,6 +47,7 @@
 <!-- Navbar end -->
 
 <audio id="background-audio" src="{% static 'audio/background-1.mp3' %}"></audio>
+<div id=mainContainer>
 <div class="container-fluid game-stats">
     <div class="row" style="height: 70px;">
         <div class="col-sm-3 col-md-3 text-right">
@@ -75,7 +78,7 @@
         </div>
         <div class="col-sm-3 col-md-3 text-center my-4">
             <button class="btn btn-outline-primary" id="controlMusic" onclick="controlBackgroundMusic()"><i
-                    class="fa fa-fw fa-volume-up"></i>Müziği&nbsp;Kapat
+                    class="fa fa-fw fa-volume-up"></i>Müziği Kapat
                 <br>
             </button>
         </div>
@@ -132,6 +135,10 @@
         </div>
     </div>
 </div>
+</div>
+<div id="loader-wrapper">
+    <div id="loader"></div>
+</div>
 <div id="fakeLoader">
 </div>
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
@@ -143,7 +150,6 @@
     var clickSrc = "{% static 'audio/click.wav' %}";
     var correctSrc = "{% static 'audio/correct2.mp3' %}";
     var wrongSrc = "{% static 'audio/wrong.wav' %}";
-
 </script>
 <script src="{% static 'js/supportFoundation.js' %}"></script>
 <script src="{% static 'js/game.js' %}"></script>
