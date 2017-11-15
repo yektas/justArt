@@ -15,6 +15,10 @@ body {
     box-shadow: none;
 }
 
+#mainContainer {
+    margin-bottom: 6%;
+}
+
 .choice {
     border: none;
     min-width: 350px;
@@ -29,9 +33,9 @@ body {
 }
 
 .support-form {
-    -webkit-box-shadow: 0px 0px 52px -11px rgba(0, 0, 0, 0.78);
-    -moz-box-shadow: 0px 0px 52px -11px rgba(0, 0, 0, 0.78);
-    box-shadow: 0px 0px 52px -11px rgba(0, 0, 0, 0.78);
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.54);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.54);
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.54);
     background: aliceblue;
 }
 

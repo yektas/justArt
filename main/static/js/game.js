@@ -13,9 +13,7 @@ var mainLoop;
 setQuestions();
 renderQuestion(questions);
 window.onload = function () {
-    $("#loader-wrapper").fadeOut(700, function () {
-        $(this).remove();
-    });
+    $("#loader-wrapper").fadeOut(700);
     mainLoop = setInterval(Timer, 1000);
     background.play();
 };
@@ -44,12 +42,7 @@ function renderQuestion(questions) {
     }
     // Sorular bitti burada bitiş ekranına geçicez.
     else {
-        $("#fakeLoader").fakeLoader({
-            timeToHide: 2000, //Time in milliseconds for fakeLoader disappear
-            zIndex: "999",//Default zIndex
-            spinner: "spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
-            bgColor: "#2ecc71", //Hex, RGB or RGBA color
-        });
+        $("#loader-wrapper").show();
 
         // Arkaplan müziğinin sesini azar azar kısıyoruz.
         function fadeVolume(volume, callback) {
@@ -69,6 +62,7 @@ function renderQuestion(questions) {
 
         $.get("/end-screen", function (data) {
             $("#mainContainer").html(data);
+            $("#loader-wrapper").fadeOut(700);
         });
     }
 }

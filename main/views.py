@@ -28,37 +28,41 @@ def game(request):
 
 @login_required
 def endScreen(request):
-    user = request.user
-    total_point = request.session['point']
-    correct_count = request.session['correct']
     question_count = request.session['question_count']
-    required_correct_count = floor(int(question_count) * 0.7)
-    foundations = Foundation.objects.all()
-    total_support_count = Foundation.objects.get_support_count
+    if (question_count > 0):
+        user = request.user
+        total_point = request.session['point']
+        correct_count = request.session['correct']
 
-    # Sonucu db ye kaydediyoruz.
-    category = Category.objects.get(category_name=request.session['category'])
-    Result.objects.create(
-        user=user,
-        category=category,
-        point=total_point,
-    )
+        required_correct_count = floor(int(question_count) * 0.7)
+        foundations = Foundation.objects.all()
+        total_support_count = Foundation.objects.get_support_count
 
-    can_support = False
-    # Soruların %70 i doğru ise katkı sağlamaya hak kazanır
-    if correct_count >= required_correct_count:
-        can_support = True
+        # Sonucu db ye kaydediyoruz.
+        category = Category.objects.get(category_name=request.session['category'])
+        Result.objects.create(
+            user=user,
+            category=category,
+            point=total_point,
+        )
 
-    data = {
-        'total_point': total_point,
-        'correct_count': correct_count,
-        'total_question': question_count,
-        'foundations': foundations,
-        'total_support_count': total_support_count,
-        'can_support': can_support,
-        'required_correct_count': required_correct_count
-    }
-    return render(request, "end-screen.html", data);
+        can_support = False
+        # Soruların %70 i doğru ise katkı sağlamaya hak kazanır
+        if correct_count >= required_correct_count:
+            can_support = True
+
+        data = {
+            'total_point': total_point,
+            'correct_count': correct_count,
+            'total_question': question_count,
+            'foundations': foundations,
+            'total_support_count': total_support_count,
+            'can_support': can_support,
+            'required_correct_count': required_correct_count
+        }
+        return render(request, "end-screen.html", data);
+    else:
+        return redirect("main:index")
 
 def setQuestions(request):
     if request.method == 'POST':

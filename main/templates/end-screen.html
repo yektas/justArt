@@ -43,19 +43,25 @@
                         <div class="col-md-4 p-4 foundation">
                             <form class="support-form">{% csrf_token %}
                                 <img class="img-fluid d-block mx-auto rounded" src="/media/{{ foundation.logo }}"
-                                     style="width: 290px; min-height: 300px">
+                                     style="width: 200px; min-height: 210px">
                                 <br>
                                 <h5>{{ foundation.foundation_name }}</h5>
                                 <p class="my-4" style="min-height: 100px; font-size: 12px;">
                                     <i>{{ foundation.about }}</i></p>
                                 <input type="hidden" name="foundation" value={{ foundation.id }}>
                                 <div class="card">
+
                                     <div class="card-body p-3">
-                                        <h4><i class="fa fa-fw fa-child fa-2x"></i></h4>
-                                        <h2 class="support_count"
-                                            data-id={{ foundation.id }}>{{ foundation.support_count }}</h2>
-                                        <button type="submit" class="btn btn-primary btn-lg supportBtn">Destek Ol
-                                        </button>
+                                        <img class="loader" src="" style="display: none;">
+                                        <div class="content">
+                                            <h4><i class="fa fa-fw fa-child fa-2x"></i></h4>
+                                            <h2 class="support_count"
+                                                data-id={{ foundation.id }}><i class='fa fa-fw fa-arrow-up'
+                                                                               style="display: none; color: lime;"></i>{{ foundation.support_count }}
+                                            </h2>
+                                            <button type="submit" class="btn btn-primary btn-lg supportBtn">Destek Ol
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -71,35 +77,4 @@
             <h3> Toplam Destek Sayısı : {{ total_support_count }}</h3>
         </div>
     {% endif %}
-</div>
-<div class="py-5 bg-dark text-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <p class="lead">Sign up to our newsletter for the latest news</p>
-                <form class="form-inline">
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Your e-mail here"></div>
-                    <button type="submit" class="btn btn-primary ml-3">Subscribe</button>
-                </form>
-            </div>
-            <div class="col-4 col-md-1 align-self-center">
-                <a href="https://www.facebook.com" target="_blank"><i
-                        class="fa fa-fw fa-facebook fa-3x text-white"></i></a>
-            </div>
-            <div class="col-4 col-md-1 align-self-center">
-                <a href="https://twitter.com" target="_blank"><i
-                        class="fa fa-fw fa-twitter fa-3x text-white"></i></a>
-            </div>
-            <div class="col-4 col-md-1 align-self-center">
-                <a href="https://www.instagram.com" target="_blank"><i
-                        class="fa fa-fw fa-instagram text-white fa-3x"></i></a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 mt-3 text-center">
-                <p>© justArt 2017 </p>
-            </div>
-        </div>
-    </div>
 </div>
