@@ -1,0 +1,20 @@
+<table class="container mb-3">
+    <thead>
+    <tr>
+        <th><h1>Sıra</h1></th>
+        <th><h1>Oyuncu adı</h1></th>
+        <th><h1>En Yüksek Puanı</h1></th>
+        <th><h1>Toplam Destek Sayısı</h1></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for player in top_results %}
+        <tr>
+            <td></td>
+            <td>{{ player.user }}</td>
+            <td>{{ player.point }}</td>
+            <td>{{ player.user.profile.support_count }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

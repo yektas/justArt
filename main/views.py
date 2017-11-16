@@ -13,11 +13,18 @@ from user.models import Result
 
 total_question_number = getattr(settings, 'TOTAL_QUESTION_NUMBER')
 
+def index(request):
+    top_results = Result.objects.order_by("user", "-point").distinct("user")[:10]
+    return render(request, "index.html", {"top_results": top_results})
+
+
+def about(request):
+    return render(request, "about.html")
+
 
 @login_required
-def index(request):
-    return render(request, "index.html")
-
+def chooseCategory(request):
+    return render(request, "chooseCategory.html")
 
 @login_required
 def game(request):

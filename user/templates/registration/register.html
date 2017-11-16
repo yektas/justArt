@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/register-signin.css' %}"/>
+{% endblock %}
 
 {% block content %}
-    <head>
-        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
-        <link rel="stylesheet" href="{% static 'css/register-signin.css' %}"/>
-    </head>
     <section class="hero">
         <div class="container">
             <div class="row">
@@ -58,5 +58,4 @@
             </div>
         </div>
     </section>
-
 {% endblock %}

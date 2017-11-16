@@ -18,8 +18,6 @@ window.onload = function () {
     background.play();
 };
 
-
-
 // Gelen soruyu render lar.
 function renderQuestion(questions) {
     progress += 1;

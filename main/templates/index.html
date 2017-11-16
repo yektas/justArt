@@ -1,100 +1,22 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'css/leaderboard.css' %}">
+{% endblock %}
 {% block content %}
-<div class="gradient-overlay text-center bg-primary p-3">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="text-light">Oyuna başlamak için kategori seçiniz
-                            <br>
-                        </h1>
-                        <p class="text-light">Seçtiğiniz kategoriye göre soru zorluk düzeyi değişmektedir.</p>
-                    </div>
+    <div class="py-5 text-center opaque-overlay mb-3" style="background-image: url(static/images/artt.jpg)">
+        <div class="container py-5 text-center">
+            <div class="row">
+                <div class="col-md-12" style="color: ghostwhite;">
+                    <h1 class="display-3 mb-4">justArt</h1>
+                    <p class="lead mb-5">justArt kısaca açıklama yazısı ve motivasyon </p>
+                    <a href="{% url 'main:choose_category' %}" class="btn btn-lg btn-primary mx-1">Oyuna Başla !</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="bg-primary p-3" style="height: 100%;">
-    <div class="container" id="category-div">
-        <div class="row">
-            <div class="p-3 align-self-center col-md-3">
-                <div class="card">
-                    <div class="card-block p-5">
-                        <form>{% csrf_token %}
-                            <h1 class="text-center text-primary"><span style="font-size: 30px;">5. Sınıf</span></h1>
-                            <input type="hidden" name="category" value="5">
-                            <hr>
-                            <button type="submit" class="btn btn-block btn-lg btn-outline-primary select-category">Seç
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="p-3 align-self-center col-md-3">
-                <div class="card">
-                    <div class="card-block p-5">
-                        <form>{% csrf_token %}
-                            <h1 class="text-center text-primary"><span style="font-size: 30px;">6. Sınıf</span></h1>
-                            <input type="hidden" name="category" value="6">
-                            <hr>
-                            <button type="submit" class="btn btn-block btn-lg btn-outline-primary select-category">Seç
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="p-3 align-self-center col-md-3">
-                <div class="card">
-                    <div class="card-block p-5">
-                        <form>{% csrf_token %}
-                            <h1 class="text-center text-primary"><span style="font-size: 30px;">7. Sınıf</span></h1>
-                            <input type="hidden" name="category" value="7">
-                            <hr>
-                            <button type="submit" class="btn btn-block btn-lg btn-outline-primary select-category">Seç
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="p-3 align-self-center col-md-3">
-                <div class="card">
-                    <div class="card-block p-5">
-                        <form>{% csrf_token %}
-                            <h1 class="text-center text-primary"><span style="font-size: 30px;">8. Sınıf</span></h1>
-                            <input type="hidden" name="category" value="8">
-                            <hr>
-                            <button type="submit" class="btn btn-block btn-lg btn-outline-primary select-category">Seç
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 mx-auto">
-                <div class="card">
-                    <div class="card-block p-5">
-                        <form>{% csrf_token %}
-                            <h1 class="text-center text-primary"><span style="font-size: 30px;">Karışık</span>
-                                <br>
-                            </h1>
-                            <hr>
-                            <input type="hidden" name="category" value="mix">
-                            <button type="submit" class="btn btn-block btn-lg btn-outline-primary select-category">Seç
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    {% include 'snippets/leaderboard.html' %}
     {% block script %}
-        <script src="{% static 'js/selectCategory.js' %}"></script>
     {% endblock %}
 {% endblock %}
 </html>
