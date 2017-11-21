@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'support',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,10 @@ MEDIA_URL = '/media/'
 
 CSRF_USE_SESSIONS = True
 SESSION_SAVE_EVERY_REQUEST = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ],
+    'PAGE_SIZE': 10
+}

@@ -11,7 +11,7 @@ class ResultStyle(admin.ModelAdmin):
 
 class UserProfileStyle(admin.ModelAdmin):
     fields = ('user', 'play_count', 'support_count')
-    readonly_fields = ('user', 'play_count', 'support_count')
+    readonly_fields = ('play_count', 'support_count')
     list_display = ('user', 'play_count', 'support_count')
 
 
