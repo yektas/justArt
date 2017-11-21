@@ -4,9 +4,17 @@
     <link rel="stylesheet" href="{% static 'css/leaderboard.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="py-5 text-center opaque-overlay mb-3" style="background-image: url(static/images/artt.jpg)">
+    <div class="py-5 text-center opaque-overlay mb-3" style="background-image: url(static/images/art.jpg)">
         <div class="container py-5 text-center">
             <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="info-box blue-bg">
+                        <i class="fa fa-cloud-download"></i>
+                        <div class="count">6.674</div>
+                        <div class="title">Download</div>
+                    </div>
+                    <!--/.info-box-->
+                </div>
                 <div class="col-md-12" style="color: ghostwhite;">
                     <h1 class="display-3 mb-4">justArt</h1>
                     <p class="lead mb-5">justArt kısaca açıklama yazısı ve motivasyon </p>
@@ -19,4 +27,3 @@
     {% block script %}
     {% endblock %}
 {% endblock %}
-</html>

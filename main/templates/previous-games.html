@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'css/leaderboard.css' %}">
+{% endblock %}
+{% block content %}
+    <table class="table-container my-3">
+        <thead>
+        <tr>
+            <th><h1>Sıra</h1></th>
+            <th><h1>Puan</h1></th>
+            <th><h1>Toplam Destek Sayısı</h1></th>
+            <th><h1>Oynama Tarihi</h1></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+            <tr>
+                <td></td>
+                <td>{{ result.point }}</td>
+                <td>{{ result.category }}</td>
+                <td>{{ result.played_date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

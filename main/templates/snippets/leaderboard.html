@@ -1,10 +1,11 @@
-<table class="container mb-3">
+<table class="table-container mb-3">
     <thead>
     <tr>
         <th><h1>Sıra</h1></th>
         <th><h1>Oyuncu adı</h1></th>
         <th><h1>En Yüksek Puanı</h1></th>
         <th><h1>Toplam Destek Sayısı</h1></th>
+        <th><h1>Oynama Tarihi</h1></th>
     </tr>
     </thead>
     <tbody>
@@ -14,6 +15,7 @@
             <td>{{ player.user }}</td>
             <td>{{ player.point }}</td>
             <td>{{ player.user.profile.support_count }}</td>
+            <td>{{ player.played_date }}</td>
         </tr>
     {% endfor %}
     </tbody>

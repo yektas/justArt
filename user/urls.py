@@ -11,4 +11,5 @@ urlpatterns = [
         kwargs={'template_name': 'registration/login.html', 'authentication_form': LoginForm}),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^register/$', views.register, name='register'),
+    url(r'^previous-games/$', views.previous_games, name='previous_games')
 ]

@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from user.forms import RegistrationForm
+from user.models import Result
 
 
 def register(request):
@@ -22,3 +24,10 @@ def register(request):
         user_form = RegistrationForm()
 
     return render(request, "registration/register.html", {'form': user_form})
+
+
+@login_required()
+def previous_games(request):
+    user = request.user
+    results = Result.objects.filter(user=user).order_by("-point")[:10]
+    return render(request, "previous-games.html", {"results": results})
