@@ -4,7 +4,7 @@ from random import shuffle
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from justArt import settings
 from main.models import Question, Artist, Category
@@ -15,7 +15,6 @@ total_question_number = getattr(settings, 'TOTAL_QUESTION_NUMBER')
 
 def index(request):
     top_results = Result.objects.order_by("user", "-point").distinct("user")[:10]
-    foundations = Foundation.objects.all()
     total_support_count = Foundation.objects.get_support_count
     return render(request, "index.html", {
         "top_results": top_results,

@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'support',
-    'rest_framework'
+
+    # Third party apps
+    'rest_framework',
+    'rest_framework_docs',
 ]
 
 MIDDLEWARE = [
@@ -131,10 +134,3 @@ MEDIA_URL = '/media/'
 
 CSRF_USE_SESSIONS = True
 SESSION_SAVE_EVERY_REQUEST = True
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser',
-    ],
-    'PAGE_SIZE': 10
-}

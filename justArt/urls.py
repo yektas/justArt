@@ -16,17 +16,17 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
-from rest_framework import routers
+from rest_framework.authtoken import views as rest_framework_views
 
 from justArt import settings
-from api import views
-
-router = routers.DefaultRouter()
-router.register(r'questions', views.GetQuestionsView, base_name='question_list')
 
 urlpatterns = [
-    url(r'^api/', include(router.urls)),
+
+    url(r'^docs/', include('rest_framework_docs.urls')),
+    url(r'^api/', include('api.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^get_auth_token/$', rest_framework_views.obtain_auth_token, name='get_auth_token'),
+
     url(r'^admin/', admin.site.urls),
     url(r'^user/', include('user.urls')),
     url(r'^support/', include('support.urls')),

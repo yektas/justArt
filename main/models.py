@@ -31,6 +31,7 @@ class Question(models.Model):
 class Artist(models.Model):
     artist_name = models.CharField(unique=True, max_length=200)
     movement_name = models.ForeignKey("Art_Movement", related_name="artist")
+    objects = models.Manager()
     randoms = RandomManager()
 
     def __str__(self):
