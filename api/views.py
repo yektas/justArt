@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
+from rest_framework.pagination import LimitOffsetPagination
 
 from api.serializers import QuestionSerializer, ArtistSerializer, FoundationSerializer, UserSerializer, \
     ResultSerializer, UserProfileSerializer
@@ -9,7 +10,15 @@ from user.models import UserProfile, Result
 
 
 class QuestionListAPIView(ListAPIView):
-    queryset = Question.objects.all()
+
+    def get_queryset(self):
+        queryset = Question.objects.all()
+        category = self.request.query_params.get('category', None)
+        if category is not None:
+            queryset = queryset.filter(category__category_name=category)
+        return queryset
+
+    pagination_class = LimitOffsetPagination
     serializer_class = QuestionSerializer
 
 

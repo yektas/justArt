@@ -78,7 +78,7 @@ def setQuestions(request):
         request.session['question_count'] = 0
         category = request.session.get('category', 'mix')
 
-        questions = Question.objects.filter(category__category_name=category)[:2]
+        questions = Question.objects.filter(category__category_name=category)[:total_question_number]
 
         question_list = []
         for question in questions:

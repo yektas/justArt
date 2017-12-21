@@ -47,9 +47,3 @@ def update_user_support_count(sender, **kwargs):
     user = User.objects.get(pk=kwargs['user_id'])
     user.profile.support_count += 1
     user.profile.save()
-
-
-@receiver(post_save, sender=User)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        Token.objects.create(user=instance)

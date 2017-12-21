@@ -11,7 +11,6 @@ class CategorySerializer(ModelSerializer):
     class Meta:
         model = Category
         fields = [
-            'id',
             'category_name'
         ]
 
@@ -47,7 +46,6 @@ class ArtistSerializer(ModelSerializer):
     class Meta:
         model = Artist
         fields = [
-            'id',
             'artist_name'
         ]
 
